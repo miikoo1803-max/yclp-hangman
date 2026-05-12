@@ -1,0 +1,245 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7fb;
+    margin: 0;
+    padding: 24px;
+    color: #222;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 24px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 14px;
+}
+
+input, textarea, button {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-top: 6px;
+}
+
+button {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 18px;
+}
+
+button:hover {
+    background: #4338ca;
+}
+
+.secondary {
+    background: #e5e7eb;
+    color: #222;
+}
+
+.secondary:hover {
+    background: #d1d5db;
+}
+
+.game-area {
+    display: none;
+    margin-top: 28px;
+    text-align: center;
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 24px;
+    align-items: center;
+}
+
+.hangman-box {
+    background: #f9fafb;
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+}
+
+svg {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+}
+
+.gallows {
+    stroke: #333;
+    stroke-width: 5;
+    stroke-linecap: round;
+    fill: none;
+}
+
+.body-part {
+    stroke: #ef4444;
+    stroke-width: 5;
+    stroke-linecap: round;
+    fill: none;
+    display: none;
+}
+
+.hangman-person.game-over {
+    animation: fallAndShake 1.1s ease-in-out forwards;
+    transform-origin: 170px 70px;
+}
+
+@keyframes fallAndShake {
+    0% { transform: rotate(0deg) translateY(0); }
+    30% { transform: rotate(8deg) translateY(8px); }
+    55% { transform: rotate(-6deg) translateY(14px); }
+    75% { transform: rotate(4deg) translateY(18px); }
+    100% { transform: rotate(0deg) translateY(22px); }
+}
+
+.game-over-banner {
+    display: none;
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 14px;
+    background: #fee2e2;
+    color: #991b1b;
+    font-size: 22px;
+    font-weight: bold;
+    animation: popIn 0.45s ease-out;
+}
+
+.game-over-banner.show {
+    display: block;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.word-display {
+    font-size: 34px;
+    letter-spacing: 10px;
+    margin: 24px 0;
+    word-break: break-word;
+    line-height: 1.5;
+    border-radius: 14px;
+    padding: 8px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.word-display.correct-flash {
+    animation: correctFlash 0.55s ease-out;
+}
+
+@keyframes correctFlash {
+    0% { background: #dcfce7; transform: scale(1); }
+    45% { background: #bbf7d0; transform: scale(1.06); }
+    100% { background: transparent; transform: scale(1); }
+}
+
+.correct-banner {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 14px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.correct-banner.show {
+    display: block;
+    animation: correctPop 0.65s ease-out;
+}
+
+@keyframes correctPop {
+    0% { transform: scale(0.7); opacity: 0; }
+    40% { transform: scale(1.12); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.keyboard-row {
+    display: grid;
+    gap: 8px;
+}
+
+.row-10 {
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.row-6 {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.keyboard button {
+    margin: 0;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f3f4f6;
+    color: #222;
+}
+
+.keyboard button:hover:not(:disabled) {
+    background: #ddd6fe;
+}
+
+.keyboard button:disabled {
+    background: #d1d5db;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.status {
+    font-size: 18px;
+    margin-top: 16px;
+    font-weight: bold;
+}
+
+.small-note {
+    color: #666;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+@media (max-width: 720px) {
+    .game-layout {
+    grid-template-columns: 1fr;
+    }
+
+    .word-display {
+    font-size: 28px;
+    letter-spacing: 7px;
+    }
+}

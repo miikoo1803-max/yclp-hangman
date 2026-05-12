@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Hangman</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Hangman</h1>
+        <p class="subtitle">Create your own Hangman game!</p>
+
+        <div id="setupArea">
+            <label for="wordInput">Word or phrase</label>
+            <input id="wordInput" placeholder="Example: DOLPHIN" />
+
+            <label for="revealedInput">Letters to reveal at the start</label>
+            <input id="revealedInput" placeholder="Example: D L" />
+            <div class="small-note">Type the letters you want already shown. </div>
+
+            <label for="wrongLimitInput">Number of wrong guesses allowed</label>
+            <input id="wrongLimitInput" type="number" min="1" max="10" value="10" />
+            <div class="small-note">This version gives up to 10 wrong guesses: 4 for the stand, then 6 for the person.</div>
+
+            <button onclick="startGame()">Start Game</button>
+            <button class="secondary" onclick="generateShareLink()">Generate Shareable Link</button>
+            <div id="shareLinkBox" class="small-note"></div>
+        </div>
+
+        <div id="gameArea" class="game-area">
+
+            <div class="game-layout">
+                <div class="hangman-box">
+                    <svg viewBox="0 0 250 300" aria-label="Hangman drawing">
+                    <!-- Gallows -->
+                    <line id="part0" class="body-part gallows-part" x1="40" y1="280" x2="210" y2="280" />
+                    <line id="part1" class="body-part gallows-part" x1="75" y1="280" x2="75" y2="35" />
+                    <line id="part2" class="body-part gallows-part" x1="75" y1="35" x2="170" y2="35" />
+                    <line id="part3" class="body-part gallows-part" x1="170" y1="35" x2="170" y2="70" />
+
+                    <!-- Body parts -->
+                    <g id="hangmanPerson" class="hangman-person">
+                    <circle id="part4" class="body-part" cx="170" cy="92" r="22" />
+                    <line id="part5" class="body-part" x1="170" y1="114" x2="170" y2="185" />
+                    <line id="part6" class="body-part" x1="170" y1="135" x2="135" y2="160" />
+                    <line id="part7" class="body-part" x1="170" y1="135" x2="205" y2="160" />
+                    <line id="part8" class="body-part" x1="170" y1="185" x2="140" y2="230" />
+                    <line id="part9" class="body-part" x1="170" y1="185" x2="200" y2="230" />
+                    </g>
+                    </svg>
+                </div>
+
+                <div>
+                    <div id="wordDisplay" class="word-display"></div>
+                    <div id="wrongGuesses"></div>
+                    <div id="status" class="status"></div>
+                    <div id="correctBanner" class="correct-banner">🎉 WORD COMPLETED! 🎉</div>
+                    <div id="gameOverBanner" class="game-over-banner">💀 GAME OVER 💀</div>
+                </div>
+            </div>
+
+            <div id="keyboard" class="keyboard"></div>
+            <button class="secondary" onclick="resetGame()">Create Another Game</button>
+            
+        </div>
+    </div>
+
+    <!-- add script -->
+    <script src="./script.js"></script>
+</body>
+</html>
