@@ -6,15 +6,20 @@ let gameOver = false;
 
 function loadGameFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const urlWord = params.get("word");
-    const urlRevealed = params.get("revealed");
-    const urlLimit = params.get("limit");
+    const encodedGame = params.get("game");
 
-    if (urlWord) {
-    document.getElementById("wordInput").value = urlWord;
-    document.getElementById("revealedInput").value = urlRevealed || "";
-    document.getElementById("wrongLimitInput").value = urlLimit || 6;
-    startGame();
+    if (encodedGame) {
+        try {
+            const decoded = JSON.parse(atob(encodedGame));
+
+            document.getElementById("wordInput").value = decoded.word || "";
+            document.getElementById("revealedInput").value = decoded.revealed || "";
+            document.getElementById("wrongLimitInput").value = decoded.limit || 6;
+
+            startGame();
+        } catch (error) {
+            console.error("Invalid game link");
+        }
     }
 }
 
@@ -24,18 +29,25 @@ function generateShareLink() {
     const limit = document.getElementById("wrongLimitInput").value || 6;
 
     if (!word) {
-    alert("Please enter a word before generating a link.");
-    return;
+        alert("Please enter a word before generating a link.");
+        return;
     }
 
-    const params = new URLSearchParams();
-    params.set("word", word);
-    params.set("revealed", revealed);
-    params.set("limit", limit);
+    const gameData = {
+        word,
+        revealed,
+        limit
+    };
 
-    const link = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    const encodedGame = btoa(JSON.stringify(gameData));
+
+    const link =
+        `${window.location.origin}${window.location.pathname}?game=${encodedGame}`;
+
     const shareLinkBox = document.getElementById("shareLinkBox");
-    shareLinkBox.innerHTML = `Share this link:<br><input value="${link}" readonly onclick="this.select()">`;
+
+    shareLinkBox.innerHTML =
+        `Share this link:<br><input value="${link}" readonly onclick="this.select()">`;
 }
 
 function startGame() {
