@@ -33,17 +33,17 @@ function generateShareLink() {
         return;
     }
 
-    const gameData = {
-        word,
-        revealed,
-        limit
-    };
+    // Compact format: word|revealed|limit
+    const compactData = `${word}|${revealed}|${limit}`;
 
-    const encodedGame = btoa(JSON.stringify(gameData));
+    // Encode
+    const encodedGame = btoa(compactData);
 
+    // Generate link
     const link =
         `${window.location.origin}${window.location.pathname}?game=${encodedGame}`;
 
+    // Display link
     const shareLinkBox = document.getElementById("shareLinkBox");
 
     shareLinkBox.innerHTML =
