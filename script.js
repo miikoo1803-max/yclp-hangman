@@ -10,13 +10,20 @@ function loadGameFromUrl() {
 
     if (encodedGame) {
         try {
-            const decoded = JSON.parse(atob(encodedGame));
+            // Decode compact string
+            const decoded = atob(encodedGame);
 
-            document.getElementById("wordInput").value = decoded.word || "";
-            document.getElementById("revealedInput").value = decoded.revealed || "";
-            document.getElementById("wrongLimitInput").value = decoded.limit || 6;
+            // Split into parts
+            const [word, revealed, limit] = decoded.split("|");
 
+            // Fill inputs
+            document.getElementById("wordInput").value = word || "";
+            document.getElementById("revealedInput").value = revealed || "";
+            document.getElementById("wrongLimitInput").value = limit || 6;
+
+            // Start game automatically
             startGame();
+
         } catch (error) {
             console.error("Invalid game link");
         }
